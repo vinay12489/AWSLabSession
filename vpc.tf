@@ -25,14 +25,7 @@ resource "aws_subnet" "public_subnet" {
   }
 
 }
-resource "aws_subnet" "private_subnet" {
-  vpc_id     = aws_vpc.vpc.id
-  cidr_block = "192.168.2.0/24"
-  tags = {
-    Name = "Private-Subnet"
-  }
 
-}
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.vpc.id
 
@@ -45,7 +38,7 @@ resource "aws_route_table" "public_rt" {
     Name = "public-rt"
   }
 }
-
+/**
 #create Elastic IP Address
 resource "aws_eip" "EIP" {
   domain = "vpc"
@@ -70,11 +63,6 @@ resource "aws_route_table" "private_rt" {
   }
 
 }
-resource "aws_route_table_association" "public_art" {
-    subnet_id = aws_subnet.public_subnet.id
-    route_table_id = aws_route_table.public_rt.id
-  
-}
 resource "aws_route_table_association" "private_art" {
     subnet_id = aws_subnet.private_subnet.id
     route_table_id = aws_route_table.private_rt.id
@@ -98,5 +86,12 @@ resource "aws_instance" "private_sever" {
     tags = {
       Name = "App Server"
     }
+  
+}
+
+**/
+resource "aws_route_table_association" "public_art" {
+    subnet_id = aws_subnet.public_subnet.id
+    route_table_id = aws_route_table.public_rt.id
   
 }
